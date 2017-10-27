@@ -27,7 +27,4 @@ winpty runas //profile //user:"$user_login" "\"$backend\" $fifoid"
 
 # Wait
 cat "$fifoid.finish" >/dev/null
-
 rm "$fifoid.finish"
-rm "$fifoid.command"
-rm "$fifoid.tty"
