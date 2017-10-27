@@ -8,6 +8,9 @@ del "%fifoid%.command"
 <"%fifoid%.bash" set /p bash_path=
 del "%fifoid%.bash"
 
-"%bash_path%" -c "%command_to_run%"
+<"%fifoid%.tty" set /p frontend_tty=
+del "%fifoid%.tty"
+
+"%bash_path%" -c "(%command_to_run%) >%frontend_tty% 2>&1"
 
 pause
