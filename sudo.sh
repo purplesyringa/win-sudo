@@ -10,6 +10,7 @@ backend="$(realpath $(dirname $0))/sudobackend.bat"
 frontend_tty=$(tty)
 
 fifoid=".sudo.$RANDOM"
+mkfifo "$fifoid.finish"
 
 echo "$command_to_run">"$fifoid.command"
 echo "$frontend_tty">"$fifoid.tty"
@@ -23,3 +24,10 @@ echo "$bash_path" >"$fifoid.bash"
 # Run command
 read -p "Login: " user_login
 winpty runas //profile //user:"$user_login" "\"$backend\" $fifoid"
+
+# Wait
+cat "$fifoid.finish" >/dev/null
+
+rm "$fifoid.finish"
+rm "$fifoid.command"
+rm "$fifoid.tty"

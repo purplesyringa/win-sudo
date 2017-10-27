@@ -11,6 +11,5 @@ del "%fifoid%.bash"
 <"%fifoid%.tty" set /p frontend_tty=
 del "%fifoid%.tty"
 
-"%bash_path%" -c "(%command_to_run%) >%frontend_tty% 2>&1"
-
-pause
+"%bash_path%" -c "(%command_to_run%) >%frontend_tty% 2>&1 <%frontend_tty%"
+"%bash_path%" -c "echo 1 >%fifoid%.finish"
