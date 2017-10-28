@@ -5,10 +5,6 @@ set fifoid=%1
 <"%fifoid%.command" set /p command_to_run=
 del "%fifoid%.command"
 
-title Git Bash: sudo
-mode con cols=80 lines=1
-set /p _="%command_to_run%"<nul
-
 <"%fifoid%.bash" set /p bash_path=
 del "%fifoid%.bash"
 
