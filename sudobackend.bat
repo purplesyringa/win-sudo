@@ -1,7 +1,7 @@
 @echo off
 cd %~dp0
 
-set fifoid=%~dp0%1
+set fifoid=%1
 
 set bash_fifoid=/%fifoid%
 set bash_fifoid=%bash_fifoid:\=/%

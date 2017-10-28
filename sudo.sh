@@ -7,11 +7,13 @@ if [ -z "$command_to_run" ]; then
 fi
 
 # Convert to Windows path
-backend="$(echo $(realpath $(dirname $0))/sudobackend.bat | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
-invisible="$(echo $(realpath $(dirname $0))/invisible.vbs | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
+sudo_dir="$(realpath $(dirname $0))"
+backend="$(echo $sudo_dir/sudobackend.bat | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
+invisible="$(echo $sudo_dir/invisible.vbs | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
 frontend_tty=$(tty)
 
-fifoid=".sudo.$RANDOM"
+fifoid="$sudo_dir/.sudo.$RANDOM"
+win_fifoid="$(echo $fifoid | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
 mkfifo "$fifoid.finish"
 mkfifo "$fifoid.pidf"
 
@@ -25,7 +27,7 @@ popd >/dev/null 2>&1
 echo "$bash_path" >"$fifoid.bash"
 
 # Run command
-powershell.exe Start-Process "$backend" "$fifoid" -Verb RunAs -WindowStyle Hidden 2>/dev/null
+powershell.exe Start-Process "$backend" "$win_fifoid" -Verb RunAs -WindowStyle Hidden 2>/dev/null
 if [ $? -ne 0 ]; then
 	echo "UAC elevation was canceled" >&2
 	exit 1
