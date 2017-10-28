@@ -9,7 +9,6 @@ fi
 # Convert to Windows path
 sudo_dir="$(realpath $(dirname $0))"
 backend="$(echo $sudo_dir/sudobackend.bat | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
-frontend_tty=$(tty)
 
 fifoid="$sudo_dir/.sudo.$RANDOM"
 win_fifoid="$(echo $fifoid | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
@@ -17,7 +16,7 @@ mkfifo "$fifoid.finish"
 mkfifo "$fifoid.pidf"
 
 echo "$command_to_run">"$fifoid.command"
-echo "$frontend_tty">"$fifoid.tty"
+echo "/proc/$$/fd">"$fifoid.fd"
 
 # Get bash path
 pushd / >/dev/null 2>&1
@@ -37,12 +36,13 @@ pid=$(cat "$fifoid.pidf")
 rm "$fifoid.pidf"
 
 # Bypass Ctrl+C
-trap "kill -s SIGINT $pid" SIGINT
+trap "kill -s SIGINT $pid || stop=1" SIGINT
 
 # Wait
+stop=0
 while true; do
 	res=$(cat "$fifoid.finish")
-	if [ ! -z "$res" ]; then
+	if [ ! -z "$res" ] || [ $stop -eq 1 ]; then
 		break
 	fi
 done

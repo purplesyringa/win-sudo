@@ -13,8 +13,8 @@ del "%fifoid%.command"
 <"%fifoid%.bash" set /p bash_path=
 del "%fifoid%.bash"
 
-<"%fifoid%.tty" set /p frontend_tty=
-del "%fifoid%.tty"
+<"%fifoid%.fd" set /p frontend=
+del "%fifoid%.fd"
 
-"%bash_path%" -c "(%command_to_run%) >%frontend_tty% 2>&1 <%frontend_tty% & echo $! | tee %bash_fifoid%.pidf >%bash_fifoid%.pid && wait $(cat %bash_fifoid%.pid)"
+"%bash_path%" -c "(%command_to_run%) >%frontend%/1 2>%frontend%/2 <%frontend%/0 & echo $! | tee %bash_fifoid%.pidf >%bash_fifoid%.pid && wait $(cat %bash_fifoid%.pid)"
 "%bash_path%" -c "echo 1 >%bash_fifoid%.finish"
