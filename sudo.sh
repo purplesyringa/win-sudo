@@ -30,3 +30,4 @@ winpty runas //profile //user:"$user_login" "wscript.exe \"$invisible\" \"$backe
 # Wait
 cat "$fifoid.finish" >/dev/null
 rm "$fifoid.finish"
+rm "$fifoid.pid"
