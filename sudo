@@ -9,7 +9,6 @@ fi
 # Convert to Windows path
 sudo_dir="$(realpath $(dirname $0))"
 backend="$(echo $sudo_dir/sudobackend.bat | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
-invisible="$(echo $sudo_dir/invisible.vbs | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
 frontend_tty=$(tty)
 
 fifoid="$sudo_dir/.sudo.$RANDOM"
