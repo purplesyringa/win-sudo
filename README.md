@@ -14,8 +14,10 @@ No more "Why must I open context menu and use a separate window?" questions.
 ## Installation
 
 ```bash
-$ cd ~/bin
+$ cd /tmp
 $ git clone https://github.com/imachug/win-sudo.git
+$ mv win-sudo/sudo ~/bin
+$ mv win-sudo/su ~/bin
 ```
 
 ## Usage
