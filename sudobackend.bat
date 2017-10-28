@@ -1,5 +1,5 @@
 @echo off
-cd %~dp0
+cd %2
 
 set fifoid=%1
 
