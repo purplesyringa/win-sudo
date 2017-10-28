@@ -13,6 +13,7 @@ frontend_tty=$(tty)
 
 fifoid=".sudo.$RANDOM"
 mkfifo "$fifoid.finish"
+mkfifo "$fifoid.pidf"
 
 echo "$command_to_run">"$fifoid.command"
 echo "$frontend_tty">"$fifoid.tty"
@@ -26,6 +27,10 @@ echo "$bash_path" >"$fifoid.bash"
 # Run command
 read -p "Login: " user_login
 winpty runas //profile //user:"$user_login" "wscript.exe \"$invisible\" \"$backend\" $fifoid"
+
+# Get pid
+pid=$(cat "$fifoid.pidf")
+rm "$fifoid.pidf"
 
 # Wait
 cat "$fifoid.finish" >/dev/null
