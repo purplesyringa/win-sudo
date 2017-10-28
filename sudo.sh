@@ -25,8 +25,11 @@ popd >/dev/null 2>&1
 echo "$bash_path" >"$fifoid.bash"
 
 # Run command
-read -p "Login: " user_login
-winpty runas //profile //user:"$user_login" "wscript.exe \"$invisible\" \"$backend\" $fifoid"
+powershell.exe Start-Process "$backend" "$fifoid" -Verb RunAs -WindowStyle Hidden 2>/dev/null
+if [ $? -ne 0 ]; then
+	echo "UAC elevation was canceled" >&2
+	exit 1
+fi
 
 # Get pid
 pid=$(cat "$fifoid.pidf")
