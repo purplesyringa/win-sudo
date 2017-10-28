@@ -32,7 +32,16 @@ winpty runas //profile //user:"$user_login" "wscript.exe \"$invisible\" \"$backe
 pid=$(cat "$fifoid.pidf")
 rm "$fifoid.pidf"
 
+# Bypass Ctrl+C
+trap "kill -s SIGINT $pid" SIGINT
+
 # Wait
-cat "$fifoid.finish" >/dev/null
+while true; do
+	res=$(cat "$fifoid.finish")
+	if [ ! -z "$res" ]; then
+		break
+	fi
+done
+
 rm "$fifoid.finish"
 rm "$fifoid.pid"
