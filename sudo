@@ -24,7 +24,7 @@ bash_path="$(pwd -W)bin/sh"
 popd >/dev/null 2>&1
 
 # Run command
-powershell.exe Start-Process \"$bash_path\" \"$backend\", \"$fifoid\", \"$(pwd)\" -Verb RunAs 2>/dev/null
+powershell.exe Start-Process \"$bash_path\" \"$backend\", \"$fifoid\", \"$(pwd)\" -Verb RunAs -WindowStyle Hidden 2>/dev/null
 if [ $? -ne 0 ]; then
 	echo "UAC elevation was canceled" >&2
 	exit 1
