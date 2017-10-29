@@ -1,4 +1,5 @@
 #!/bin/bash
-sudo_path="$(realpath $(dirname $0))/sudo"
+root_dir="$(realpath $(dirname $0))"
+sudo_path="$root_dir/sudo"
 
-$sudo_path bash --rcfile "~/.sudorc"
+$sudo_path bash --rcfile "$root_dir/sudorc"
