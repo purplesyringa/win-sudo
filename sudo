@@ -13,6 +13,7 @@ backend="$(echo $sudo_dir/sudobackend.sh | sed -e 's/^\///' -e 's/\//\\/g' -e 's
 fifoid="$sudo_dir/.sudo.$RANDOM"
 mkfifo "$fifoid.finish"
 mkfifo "$fifoid.pidf"
+mkfifo "$fifoid.sigint"
 
 echo "$command_to_run">"$fifoid.command"
 echo "/proc/$$/fd">"$fifoid.fd"
@@ -34,9 +35,11 @@ fi
 pid=$(cat "$fifoid.pidf")
 rm "$fifoid.pidf"
 
-trap "rm \"$fifoid.finish\"" EXIT
+trap "rm \"$fifoid.finish\"; rm \"$fifoid.sigint\"" EXIT
 
 # Wait
+trap "echo 1 >\"$fifoid.sigint\" && sleep 0.1" SIGINT
+
 while true; do
 	res=$(cat "$fifoid.finish")
 	if [ ! -z "$res" ]; then
