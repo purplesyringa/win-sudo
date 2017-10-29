@@ -45,6 +45,8 @@ $
 
 ## Known issues
 
+### winpty
+
 Some windows commands (such as `cmd`) don't work fine. So:
 
 ```bash
@@ -59,6 +61,17 @@ echo 1 <--
 C:\Users\Ivanq>
 ```
 
-THe command is prompted twice. Though the same happens when calling just `cmd`, not `sudo cmd`.
+The command is prompted twice. Though the same happens when calling just `cmd`, not `sudo cmd`.
 
 To fix this, run `sudo winpty cmd` instead. (but you will have to run `sudo winpty cmd //c "echo 1"` instead of `sudo cmd /c "echo 1"`)
+
+### Job support
+
+`win-sudo` doesn't support jobs, so when running `su` or `sudo bash` you may get:
+
+```
+bash: cannot set terminal process group (7152): Operation not permitted
+bash: no job control in this shell
+```
+
+This is harmless, so you can ignore this warning.
