@@ -43,6 +43,13 @@ $ su
 $
 ```
 
+## Why win-sudo?
+
+1. No need for installation: download and use.
+2. Native: no Go, Python, etc.
+3. Open-source: no viruses.
+4. Small: easy to contribute and understand.
+
 ## Known issues
 
 ### winpty
