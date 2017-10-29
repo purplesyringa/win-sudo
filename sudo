@@ -18,6 +18,16 @@ mkfifo "$fifoid.sigint"
 echo "$command_to_run" >"$fifoid.command"
 echo "/proc/$$/fd" >"$fifoid.fd"
 
+# Create fifo for stdin
+if [ -t 0 ]; then
+	# Terminal
+	echo "/proc/$$/fd/0" >"$fifoid.stdin"
+else
+	# Not terminal
+	mkfifo "$fifoid.ipipe"
+	echo "$fifoid.ipipe" >"$fifoid.stdin"
+fi
+
 # Create fifo for stdout
 if [ -t 1 ]; then
 	# Terminal
@@ -59,6 +69,11 @@ trap "rm \"$fifoid.finish\"; rm \"$fifoid.sigint\"" EXIT
 # Wait
 trap "echo 1 >\"$fifoid.sigint\" && sleep 0.1" SIGINT
 
+# Save stdin fifo
+if [ ! -t 0 ]; then
+	( cat <&3 >"$fifoid.ipipe" & ) 3<&0
+fi
+
 # Cat stdout fifo
 if [ ! -t 1 ]; then
 	cat "$fifoid.opipe" &
@@ -75,3 +90,13 @@ while true; do
 		break
 	fi
 done
+
+if [ ! -t 0 ]; then
+	rm "$fifoid.ipipe"
+fi
+if [ ! -t 1 ]; then
+	rm "$fifoid.opipe"
+fi
+if [ ! -t 2 ]; then
+	rm "$fifoid.epipe"
+fi

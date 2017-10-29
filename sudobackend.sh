@@ -8,13 +8,16 @@ rm "$fifoid.command"
 frontend=$(cat "$fifoid.fd")
 rm "$fifoid.fd"
 
+stdin=$(cat "$fifoid.stdin")
+rm "$fifoid.stdin"
+
 stdout=$(cat "$fifoid.stdout")
 rm "$fifoid.stdout"
 
 stderr=$(cat "$fifoid.stderr")
 rm "$fifoid.stderr"
 
-bash -c "$command_to_run" >"$stdout" 2>"$stderr" <"$frontend/0" &
+bash -c "$command_to_run" >"$stdout" 2>"$stderr" <"$stdin" &
 pid=$!
 echo $pid >"$fifoid.pidf"
 
