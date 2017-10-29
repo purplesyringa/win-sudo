@@ -15,8 +15,28 @@ mkfifo "$fifoid.finish"
 mkfifo "$fifoid.pidf"
 mkfifo "$fifoid.sigint"
 
-echo "$command_to_run">"$fifoid.command"
-echo "/proc/$$/fd">"$fifoid.fd"
+echo "$command_to_run" >"$fifoid.command"
+echo "/proc/$$/fd" >"$fifoid.fd"
+
+# Create fifo for stdout
+if [ -t 1 ]; then
+	# Terminal
+	echo "/proc/$$/fd/1" >"$fifoid.stdout"
+else
+	# Not terminal
+	mkfifo "$fifoid.opipe"
+	echo "$fifoid.opipe" >"$fifoid.stdout"
+fi
+
+# Create fifo for stderr
+if [ -t 2 ]; then
+	# Terminal
+	echo "/proc/$$/fd/2" >"$fifoid.stderr"
+else
+	# Not terminal
+	mkfifo "$fifoid.epipe"
+	echo "$fifoid.epipe" >"$fifoid.stderr"
+fi
 
 # Get bash path
 pushd / >/dev/null 2>&1
@@ -38,6 +58,16 @@ trap "rm \"$fifoid.finish\"; rm \"$fifoid.sigint\"" EXIT
 
 # Wait
 trap "echo 1 >\"$fifoid.sigint\" && sleep 0.1" SIGINT
+
+# Cat stdout fifo
+if [ ! -t 1 ]; then
+	cat "$fifoid.opipe" &
+fi
+
+# Cat stderr fifo
+if [ ! -t 2 ]; then
+	cat "$fifoid.epipe" >&2 &
+fi
 
 while true; do
 	res=$(cat "$fifoid.finish")
