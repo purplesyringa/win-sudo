@@ -8,7 +8,7 @@ fi
 
 # Convert to Windows path
 sudo_dir="$(realpath $(dirname $0))"
-backend="$(echo $sudo_dir/sudobackend.sh | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
+backend="$sudo_dir/sudobackend.sh"
 
 fifoid="$sudo_dir/.sudo.$RANDOM"
 mkfifo "$fifoid.finish"
