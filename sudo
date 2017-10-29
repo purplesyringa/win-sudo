@@ -35,17 +35,14 @@ fi
 pid=$(cat "$fifoid.pidf")
 rm "$fifoid.pidf"
 
-# Bypass Ctrl+C
-trap "kill -s SIGINT $pid || stop=1" SIGINT
+trap "rm \"$fifoid.finish\"; rm \"$fifoid.pid\"" EXIT
 
 # Wait
-stop=0
+trap "kill -s SIGINT $pid || exit 1" SIGINT
+
 while true; do
 	res=$(cat "$fifoid.finish")
-	if [ ! -z "$res" ] || [ $stop -eq 1 ]; then
+	if [ ! -z "$res" ]; then
 		break
 	fi
 done
-
-rm "$fifoid.finish"
-rm "$fifoid.pid"
