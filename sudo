@@ -8,10 +8,9 @@ fi
 
 # Convert to Windows path
 sudo_dir="$(realpath $(dirname $0))"
-backend="$(echo $sudo_dir/sudobackend.bat | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
+backend="$(echo $sudo_dir/sudobackend.sh | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
 
 fifoid="$sudo_dir/.sudo.$RANDOM"
-win_fifoid="$(echo $fifoid | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/')"
 mkfifo "$fifoid.finish"
 mkfifo "$fifoid.pidf"
 
@@ -25,7 +24,7 @@ popd >/dev/null 2>&1
 echo "$bash_path" >"$fifoid.bash"
 
 # Run command
-powershell.exe Start-Process "$backend" "$win_fifoid", "$(pwd)" -Verb RunAs -WindowStyle Hidden 2>/dev/null
+powershell.exe Start-Process \"$bash_path\" \"$backend\", \"$fifoid\", \"$(pwd)\" -Verb RunAs 2>/dev/null
 if [ $? -ne 0 ]; then
 	echo "UAC elevation was canceled" >&2
 	exit 1
@@ -35,11 +34,9 @@ fi
 pid=$(cat "$fifoid.pidf")
 rm "$fifoid.pidf"
 
-trap "rm \"$fifoid.finish\"; rm \"$fifoid.pid\"" EXIT
+trap "rm \"$fifoid.finish\"" EXIT
 
 # Wait
-trap "kill -s SIGINT $pid || exit 1" SIGINT
-
 while true; do
 	res=$(cat "$fifoid.finish")
 	if [ ! -z "$res" ]; then
