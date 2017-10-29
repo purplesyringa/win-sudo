@@ -10,48 +10,42 @@ fi
 sudo_dir="$(realpath $(dirname $0))"
 backend="$sudo_dir/sudobackend.sh"
 
-fifoid="$sudo_dir/.sudo.$RANDOM"
+fifoid="/tmp/.sudo.$RANDOM"
 mkfifo "$fifoid.finish"
 mkfifo "$fifoid.pidf"
 mkfifo "$fifoid.sigint"
 
 echo "$command_to_run" >"$fifoid.command"
-echo "/proc/$$/fd" >"$fifoid.fd"
 
-# Create fifo for stdin
-if [ -t 0 ]; then
-	# Terminal
-	echo "/proc/$$/fd/0" >"$fifoid.stdin"
-else
-	# Not terminal
-	mkfifo "$fifoid.ipipe"
-	echo "$fifoid.ipipe" >"$fifoid.stdin"
-fi
-
-# Create fifo for stdout
-if [ -t 1 ]; then
-	# Terminal
-	echo "/proc/$$/fd/1" >"$fifoid.stdout"
-else
-	# Not terminal
-	mkfifo "$fifoid.opipe"
-	echo "$fifoid.opipe" >"$fifoid.stdout"
-fi
-
-# Create fifo for stderr
-if [ -t 2 ]; then
-	# Terminal
-	echo "/proc/$$/fd/2" >"$fifoid.stderr"
-else
-	# Not terminal
-	mkfifo "$fifoid.epipe"
-	echo "$fifoid.epipe" >"$fifoid.stderr"
-fi
+# Create fifos
+for fd in 0 1 2; do
+	if [ -t $fd ]; then
+		# Terminal
+		echo "/proc/$$/fd/$fd" >"$fifoid.fd$fd"
+	else
+		# Not terminal
+		mkfifo "$fifoid.pipe$fd"
+		echo "$fifoid.pipe$fd" >"$fifoid.fd$fd"
+	fi
+done
 
 # Get bash path
 pushd / >/dev/null 2>&1
 bash_path="$(pwd -W)bin/sh"
 popd >/dev/null 2>&1
+
+function clean {
+	rm "$fifoid.finish" "$fifoid.sigint" "$fifoid.pidf" "$fifoid.command"
+
+	# Remove stdin/stdout/stderr
+	for fd in 0 1 2; do
+		if [ ! -t $fd ]; then
+			rm "$fifoid.pipe$fd"
+		fi
+		rm "$fifoid.fd$fd"
+	done
+}
+trap clean EXIT
 
 # Run command
 powershell.exe Start-Process \"$bash_path\" \"$backend\", \"$fifoid\", \"$(pwd)\" -Verb RunAs -WindowStyle Hidden 2>/dev/null
@@ -62,27 +56,21 @@ fi
 
 # Get pid
 pid=$(cat "$fifoid.pidf")
-rm "$fifoid.pidf"
-
-trap "rm \"$fifoid.finish\"; rm \"$fifoid.sigint\"" EXIT
 
 # Wait
 trap "echo 1 >\"$fifoid.sigint\" && sleep 0.1" SIGINT
 
-# Save stdin fifo
+# Pass stdin fifo
 if [ ! -t 0 ]; then
-	( cat <&3 >"$fifoid.ipipe" & ) 3<&0
+	( cat <&3 >"$fifoid.pipe0" & ) 3<&0
 fi
 
-# Cat stdout fifo
-if [ ! -t 1 ]; then
-	cat "$fifoid.opipe" &
-fi
-
-# Cat stderr fifo
-if [ ! -t 2 ]; then
-	cat "$fifoid.epipe" >&2 &
-fi
+# Cat stdout and stderr
+for fd in 1 2; do
+	if [ ! -t $fd ]; then
+		cat "$fifoid.pipe1" &
+	fi
+done
 
 while true; do
 	res=$(cat "$fifoid.finish")
@@ -90,13 +78,3 @@ while true; do
 		break
 	fi
 done
-
-if [ ! -t 0 ]; then
-	rm "$fifoid.ipipe"
-fi
-if [ ! -t 1 ]; then
-	rm "$fifoid.opipe"
-fi
-if [ ! -t 2 ]; then
-	rm "$fifoid.epipe"
-fi

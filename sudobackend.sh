@@ -3,19 +3,9 @@ cd "$2"
 fifoid=$1
 
 command_to_run=$(cat "$fifoid.command")
-rm "$fifoid.command"
-
-frontend=$(cat "$fifoid.fd")
-rm "$fifoid.fd"
-
-stdin=$(cat "$fifoid.stdin")
-rm "$fifoid.stdin"
-
-stdout=$(cat "$fifoid.stdout")
-rm "$fifoid.stdout"
-
-stderr=$(cat "$fifoid.stderr")
-rm "$fifoid.stderr"
+stdin=$(cat "$fifoid.fd0")
+stdout=$(cat "$fifoid.fd1")
+stderr=$(cat "$fifoid.fd2")
 
 bash -c "$command_to_run" >"$stdout" 2>"$stderr" <"$stdin" &
 pid=$!
