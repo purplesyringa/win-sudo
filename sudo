@@ -22,7 +22,6 @@ echo "/proc/$$/fd">"$fifoid.fd"
 pushd / >/dev/null 2>&1
 bash_path="$(pwd -W)bin/sh"
 popd >/dev/null 2>&1
-echo "$bash_path" >"$fifoid.bash"
 
 # Run command
 powershell.exe Start-Process \"$bash_path\" \"$backend\", \"$fifoid\", \"$(pwd)\" -Verb RunAs 2>/dev/null
