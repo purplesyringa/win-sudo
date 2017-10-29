@@ -14,7 +14,7 @@ rm "$fifoid.stdout"
 stderr=$(cat "$fifoid.stderr")
 rm "$fifoid.stderr"
 
-($command_to_run) >"$stdout" 2>"$stderr" <"$frontend/0" &
+bash -c "$command_to_run" >"$stdout" 2>"$stderr" <"$frontend/0" &
 pid=$!
 echo $pid >"$fifoid.pidf"
 
