@@ -14,10 +14,16 @@ No more "Why must I open context menu and use a separate window?" questions.
 ## Installation
 
 ```bash
-$ cd /tmp
-$ git clone https://github.com/imachug/win-sudo.git
-$ mv win-sudo/sudo ~/bin
-$ mv win-sudo/su ~/bin
+if ! [ -L ~/bin ] && ! [ -d ~/bin ]; then 
+	echo make dir
+	mkdir ~/bin
+else 
+	echo dir '~/bin' exist
+fi
+cd /tmp
+git clone https://github.com/imachug/win-sudo.git
+mv win-sudo/sudo ~/bin
+mv win-sudo/su ~/bin
 ```
 
 ## Usage
