@@ -10,6 +10,8 @@ function doInstall {
 	git clone https://github.com/imachug/win-sudo.git && \
 	mv win-sudo/sudo ~/bin && \
 	mv win-sudo/su ~/bin && \
+	mv win-sudo/sudobackend ~/bin && \
+	mv win-sudo/sudorc ~/bin && \
 	rm -rf win-sudo
 }
 
