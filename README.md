@@ -14,7 +14,7 @@ No more "Why must I open context menu and use a separate window?" questions.
 ## Installation
 
 ```
-curl -s https://raw.githubusercontent.com/imachug/win-sudo/betterInstallScript/install.sh | sh
+curl -s https://raw.githubusercontent.com/imachug/win-sudo/master/install.sh | sh
 ```
 
 ## Usage
