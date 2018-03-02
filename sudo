@@ -29,6 +29,11 @@ for fd in 0 1 2; do
 	fi
 done
 
+# Get bash path
+pushd / >/dev/null 2>&1
+bash_path="$(pwd -W)bin/sh"
+popd >/dev/null 2>&1
+
 function clean {
 	rm "$fifoid.finish" "$fifoid.sigint" "$fifoid.pidf" "$fifoid.command"
 
@@ -43,7 +48,7 @@ function clean {
 trap clean EXIT
 
 # Run command
-powershell.exe Start-Process \"$(cygpath -w "$SHELL")\" \"$backend\", \"$fifoid\", \"$(pwd)\" -Verb RunAs -WindowStyle Hidden 2>/dev/null
+powershell.exe Start-Process \"$bash_path\" \"$backend\", \"$fifoid\", \"$(pwd)\" -Verb RunAs -WindowStyle Hidden 2>/dev/null
 if [ $? -ne 0 ]; then
 	echo "UAC elevation was canceled" >&2
 	exit 1
