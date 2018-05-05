@@ -9,8 +9,7 @@ if [ $ret -eq 127 ]; then
 	ret=$?
 fi
 if [ $ret -eq 0 ]; then
-	$*
-	exit $?
+	exec $*
 fi
 
 command_to_run="$*"
