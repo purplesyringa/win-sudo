@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 function doInstall {
 	if ! [ -L ~/bin ] && ! [ -d ~/bin ]; then
 		echo make dir
@@ -16,3 +17,6 @@ function doFail {
 }
 doInstall || doFail
 echo "enjoy :)"
+exec 5> debug_output.txt
+BASH_XTRACEFD="5"
+PS4='$LINENO: '
