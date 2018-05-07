@@ -1,15 +1,10 @@
 #!/usr/bin/env bash
 function doInstall {
-	if ! [ -L ~/bin ] && ! [ -d ~/bin ]; then
-		echo make dir
-		mkdir ~/bin
-	else
-		echo dir '~/bin' exist
+	TMP_DIR=/tmp/win-sudo
+	if ! [ -d "${TMP_DIR}" ]; then
+		git -c advice.detachedHead=false clone https://github.com/imachug/win-sudo.git --depth=1 "${TMP_DIR}"
 	fi
-	cd /tmp && \
-	git clone https://github.com/imachug/win-sudo.git && \
-	mv win-sudo/su* ~/bin && \
-	rm -rf win-sudo
+	"${TMP_DIR}/sudo" cp "${TMP_DIR}/su*" /usr/bin/ "&&" rm -rf "${TMP_DIR}"
 }
 
 function doFail {
