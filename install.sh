@@ -2,9 +2,9 @@
 function doInstall {
 	if ! [ -L ~/bin ] && ! [ -d ~/bin ]; then
 		echo make dir
-		mkdir ~/bin
+		mkdir /usr/bin
 	else
-		echo dir '~/bin' exist
+		echo dir '/usr/bin' exist
 	fi
 	git clone https://github.com/DemonixCraft/win-sudo1.git/tree/master/s/ /usr/bin
 	git clone https://github.com/DemonixCraft/win-sudo1.git/install.sh /tmp
