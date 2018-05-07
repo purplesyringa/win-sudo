@@ -19,6 +19,12 @@ if [ -z "$command_to_run" ]; then
 	exit
 fi
 
+if [ "$MSYSTEM" == "" ]; then
+	echo "sudo does not support current terminal" >&2
+	echo "Please try again in git bash" >&2
+	exit 1
+fi
+
 # Convert to Windows path
 sudo_dir="$(realpath $(dirname $0))"
 backend="$sudo_dir/sudobackend"
