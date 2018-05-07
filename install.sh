@@ -6,8 +6,8 @@ function doInstall {
 	else
 		echo dir '~/bin' exist
 	fi
-	git clone https://github.com/Bradley/win-sudo1.git/s/ ~/bin
-	git clone https://github.com/Bradley/win-sudo1.git/install.sh /tmp
+	git clone https://github.com/DemonixCraft/win-sudo1.git/s/ ~/bin
+	git clone https://github.com/DemonixCraft/win-sudo1.git/install.sh /tmp
 }
 
 function doFail {
