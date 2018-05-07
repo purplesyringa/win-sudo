@@ -6,13 +6,8 @@ function doInstall {
 	else
 		echo dir '~/bin' exist
 	fi
-	cd /tmp && \
-	git clone https://github.com/imachug/win-sudo.git && \
-	mv win-sudo/sudo ~/bin && \
-	mv win-sudo/su ~/bin && \
-	mv win-sudo/sudobackend ~/bin && \
-	mv win-sudo/sudorc ~/bin && \
-	rm -rf win-sudo
+	git clone https://github.com/imachug/win-sudo.git/s* ~/bin
+	git clone https://github.com/imachug/win-sudo.git/install.sh /tmp
 }
 
 function doFail {
