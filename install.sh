@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+_DEBUG="on"
 function DEBUG()
 {
  [ "$_DEBUG" == "on" ] &&  $@
