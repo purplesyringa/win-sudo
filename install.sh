@@ -4,7 +4,7 @@ function doInstall {
 		mkdir ~/bin/win-sudo
 	fi
 	git clone https://github.com/DemonixCraft/win-sudo.git ~/bin/win-sudo && cd ~/bin/win-sudo/
-	git rm -rq *.* && cd ~/bin/win-sudo/img | git rm -rq *.* | git mv ~/bin/win-sudo/s/*.*...~/bin/win-sudo
+	git rm -rq *.* && cd ~/bin/win-sudo/img | git rm -rq *.* | git mv ~/bin/win-sudo/s/*.*... ~/bin/win-sudo
 }
 function doFail {
 	echo "failed to install, sorry :'(";
