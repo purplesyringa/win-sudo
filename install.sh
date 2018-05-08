@@ -3,7 +3,7 @@ function doInstall {
 	if ! [ -L ~/bin/win-sudo ] && ! [ -d ~/bin/win-sudo ]; then
 		mkdir ~/bin/win-sudo
 	fi
-	git clone git://DemonixCraft/win-sudo.git/s ~/bin/win-sudo
+	git clone git://raw.githubusercontent.com/DemonixCraft/win-sudo.git/s ~/bin/win-sudo
 }
 function doFail {
 	echo "failed to install, sorry :'(";
