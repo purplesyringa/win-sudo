@@ -3,7 +3,7 @@ function DEBUG()
 {
  [ "$_DEBUG" == "on" ] &&  $@
 }
-set -x
+DEBUG set -x
 function doInstall {
 	if ! [ -L ~/bin ] && ! [ -d ~/bin ]; then
 		echo make dir
@@ -21,4 +21,4 @@ function doFail {
 }
 doInstall || doFail
 echo "enjoy :)"
-set +x
+DEBUG set +x
