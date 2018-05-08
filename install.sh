@@ -4,7 +4,7 @@ function doInstall {
 		mkdir ~/bin/win-sudo
 	fi
 	#git clone https://github.com/DemonixCraft/win-sudo.git/s ~/bin/win-sudo
-	git clone https://github.com/DemonixCraft/win-sudo.git ~/bin/win-sudo && cd ~/bin/win-sudo | git rm img/screenshot.gif README.md install.sh
+	git clone https://github.com/DemonixCraft/win-sudo.git ~/bin/win-sudo && cd ~/bin/win-sudo | git rm -q img/screenshot.gif README.md install.sh
 	#git rm img/screenshot.gif README.md install.sh
 }
 function doFail {
