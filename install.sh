@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
-_DEBUG="on"
-function DEBUG()
-{
- [ "$_DEBUG" == "on" ] &&  $@
-}
-DEBUG set -x
 function doInstall {
 	if ! [ -L ~/bin ] && ! [ -d ~/bin ]; then
 		echo make dir
@@ -21,4 +15,3 @@ function doFail {
 }
 doInstall || doFail
 echo "enjoy :)"
-DEBUG set +x
