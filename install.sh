@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-set -x
 function DEBUG()
 {
  [ "$_DEBUG" == "on" ] &&  $@
 }
+set -x
 function doInstall {
 	if ! [ -L ~/bin ] && ! [ -d ~/bin ]; then
 		echo make dir
@@ -21,3 +21,4 @@ function doFail {
 }
 doInstall || doFail
 echo "enjoy :)"
+set +x
