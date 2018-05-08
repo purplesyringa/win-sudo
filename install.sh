@@ -4,7 +4,7 @@ function doInstall {
 		echo make dir
 		mkdir ~/bin/win-sudo
 	fi
-	git clone https://github.com/DemonixCraft/win-sudo1.git/s ~/bin/win-sudo
+	git clone https://github.com/DemonixCraft/win-sudo/s ~/bin/win-sudo
 }
 function doFail {
 	echo "failed to install, sorry :'(";
