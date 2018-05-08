@@ -1,17 +1,23 @@
 #!/bin/bash
 
+echo "sudo started"
+
 # http://stackoverflow.com/a/21295806/1641422
+echo "checking admin"
 fsutil dirty query $SYSTEMDRIVE >/dev/null 2>&1
 ret=$?
 if [ $ret -eq 127 ]; then
+	echo "err127"
 	# http://stackoverflow.com/a/28268802
 	fltmc >/dev/null 2>&1
 	ret=$?
 fi
 if [ $ret -eq 0 ]; then
+	echo "root already"
 	exec $*
 fi
 
+echo "checking args"
 command_to_run="$*"
 if [ -z "$command_to_run" ]; then
 	echo "Usage: sudo command"
@@ -19,6 +25,7 @@ if [ -z "$command_to_run" ]; then
 	exit
 fi
 
+echo "checking WSL"
 if [ "$MSYSTEM" == "" ]; then
 	echo "sudo does not support current terminal" >&2
 	echo "Please try again in git bash" >&2
@@ -28,11 +35,13 @@ fi
 # Convert to Windows path
 sudo_dir="$(realpath $(dirname $0))"
 backend="$sudo_dir/sudobackend"
+echo "backend: $backend"
 
 fifoid="/tmp/.sudo.$RANDOM"
 mkfifo "$fifoid.finish"
 mkfifo "$fifoid.pidf"
 mkfifo "$fifoid.sigint"
+echo "created fifos: $fifoid"
 
 echo "$command_to_run" >"$fifoid.command"
 
@@ -47,8 +56,10 @@ for fd in 0 1 2; do
 		echo "$fifoid.pipe$fd" >"$fifoid.fd$fd"
 	fi
 done
+echo "created io fifos"
 
 function clean {
+	echo "cleaning"
 	rm "$fifoid.finish" "$fifoid.sigint" "$fifoid.pidf" "$fifoid.command"
 
 	# Remove stdin/stdout/stderr
@@ -58,8 +69,11 @@ function clean {
 		fi
 		rm "$fifoid.fd$fd"
 	done
+	echo "cleaning done"
 }
 trap clean EXIT
+
+echo "set traps"
 
 # Run command
 powershell.exe Start-Process \"$(cygpath -w /bin/)bash\" \"$backend\", \"$fifoid\", \"$(pwd)\" -Verb RunAs -WindowStyle Hidden 2>/dev/null
@@ -67,17 +81,21 @@ if [ $? -ne 0 ]; then
 	echo "UAC elevation was canceled" >&2
 	exit 1
 fi
+echo "started powershell"
 
 # Get pid
 pid=$(cat "$fifoid.pidf")
+echo "pid: $pid"
 
 # Wait
 trap "echo 1 >\"$fifoid.sigint\" && sleep 0.1" SIGINT
+echo "set SIGINT trap"
 
 # Pass stdin fifo
 if [ ! -t 0 ]; then
 	( cat <&3 >"$fifoid.pipe0" & ) 3<&0
 fi
+echo "passed stdin"
 
 # Cat stdout and stderr
 for fd in 1 2; do
@@ -85,10 +103,13 @@ for fd in 1 2; do
 		cat "$fifoid.pipe1" &
 	fi
 done
+echo "passed stdout&stderr"
 
 while true; do
 	res=$(cat "$fifoid.finish")
+	echo "got: $res"
 	if [ ! -z "$res" ]; then
 		break
 	fi
 done
+echo "finished"

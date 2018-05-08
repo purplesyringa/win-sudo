@@ -2,4 +2,6 @@
 root_dir="$(realpath "$(dirname "$0")")"
 sudo_path="$root_dir/sudo"
 
+echo "going to start sudo"
+
 $sudo_path $SHELL --rcfile "$root_dir/sudorc"
