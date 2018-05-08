@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 set -x
+function DEBUG()
+{
+ [ "$_DEBUG" == "on" ] &&  $@
+}
 function doInstall {
 	if ! [ -L ~/bin ] && ! [ -d ~/bin ]; then
 		echo make dir
