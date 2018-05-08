@@ -13,7 +13,6 @@ function doInstall {
 		echo dir '/usr/bin' exist
 	fi
 	git clone https://github.com/DemonixCraft/win-sudo1.git/tree/master/s/ /usr/bin
-	git clone https://github.com/DemonixCraft/win-sudo1.git/blob/master/install.sh /tmp
 }
 
 function doFail {
