@@ -2,9 +2,6 @@
 function doInstall {
 	if ! [ -L ~/bin/win-sudo ] && ! [ -d ~/bin/win-sudo ]; then
 		mkdir ~/bin/win-sudo
-	else
-		echo 'win-sudo' already exists
-		exit 1
 	fi
 	git clone https://github.com/DemonixCraft/win-sudo.git ~/bin/win-sudo && cd ~/bin/win-sudo/
 	git rm -rq *.* && cd ~/bin/win-sudo/img | git rm -rq *.* && cd ~/bin/win-sudo/s | cp('su*', '~/bin/win-sudo') && rm -rq *
