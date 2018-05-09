@@ -7,7 +7,7 @@ function doInstall {
 	cd ~/bin/win-sudo | git init -q
 	git config core.sparsecheckout true
 	echo s/ >> .git/info/sparse-checkout
-	git remote add -f origin https://github.com/DemonixCraft/win-sudo.git 
+	git remote add -f origin https://github.com/DemonixCraft/win-sudo.git/s
 	git pull origin master 
 	git remote rm origin
 }
