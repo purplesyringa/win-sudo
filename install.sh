@@ -9,7 +9,7 @@ function doInstall {
 	git remote add -f origin https://github.com/DemonixCraft/win-sudo.git
 	git pull origin master 
 	git remote rm origin
-	PATH=$PATH:/*/Users/*/bin/win-sudo/s
+	export PATH=$PATH:/*/Users/*/bin/win-sudo/s
 }
 function doFail {
 	echo "failed to install, sorry :'(";
