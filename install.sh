@@ -16,5 +16,5 @@ function doFail {
 	exit 1
 }
 doInstall || doFail
-export PATH=$PATH:/*/Users/*/bin/win-sudo/s .bashrc
+export PATH=$PATH:/*/Users/*/bin/win-sudo/s /.bashrc
 echo "enjoy :)"
