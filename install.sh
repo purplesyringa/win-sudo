@@ -19,5 +19,3 @@ function doFail {
 doInstall || doFail
 PATH=$PATH:/usr/bin/win-sudo/s
 echo "enjoy :)"
-
-#Commented 'git clone' lines work 
