@@ -12,5 +12,5 @@ function doFail {
 	exit 1
 }
 doInstall || doFail
-PATH=$PATH:/*/*/bin/win-sudo
+PATH=$PATH:/*/Users/*/bin/win-sudo/s
 echo "enjoy :)"
