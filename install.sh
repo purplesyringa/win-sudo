@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+shopt -s globstar
 function doInstall {
 	if ! [ -L ~/bin/win-sudo ] && ! [ -d ~/bin/win-sudo ]; then
 		mkdir ~/bin/win-sudo
@@ -11,5 +12,5 @@ function doFail {
 	exit 1
 }
 doInstall || doFail
-PATH=$PATH:/*/Users/*/win-sudo
+PATH=$PATH:/*/*/bin/win-sudo
 echo "enjoy :)"
