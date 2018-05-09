@@ -4,9 +4,7 @@ function doInstall {
 	if ! [ -L ~/bin/win-sudo ] && ! [ -d ~/bin/win-sudo ]; then
 		mkdir ~/bin/win-sudo
 	fi
-	cd ~/bin/win-sudo
-	git init -q
-	git config core.sparsecheckout true
+	cd ~/bin/win-sudo | git init -q && git config core.sparsecheckout true
 	echo s/ >> .git/info/sparse-checkout
 	git remote add -f origin https://github.com/DemonixCraft/win-sudo.git
 	git pull origin master 
