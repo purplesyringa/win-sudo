@@ -10,7 +10,7 @@ function doInstall {
 	echo s/ >> .git/info/sparse-checkout
 	git remote add -f origin https://github.com/DemonixCraft/win-sudo.git
 	git pull origin master
-	git remote rm -f origin
+	git remote rm origin
 	
 	
 	
