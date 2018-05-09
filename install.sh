@@ -17,8 +17,7 @@ function doFail {
 	exit 1
 }
 doInstall || doFail
-#PATH=$PATH:~/bin/win-sudo/s
-git add -f ~/bin/win-sudo/s
+PATH=$PATH:/usr/bin/win-sudo/s
 echo "enjoy :)"
 
 #Commented 'git clone' lines work 
