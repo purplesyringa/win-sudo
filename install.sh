@@ -18,4 +18,3 @@ function doFail {
 doInstall || doFail
 echo "export PATH="/*/Users/*/bin/win-sudo/s:$PATH" >> .bashrc
 echo $PATH " has been added to .bashrc"
-#echo "enjoy :)"
