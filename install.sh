@@ -17,6 +17,6 @@ function doFail {
 }
 doInstall || doFail
 #echo "export PATH=/c/Users/*/bin/win-sudo/s:$PATH" >> ~/.profile
-export PATH=/c/Users/*/bin/win-sudo/s:$PATH
+export PATH="/c/Users/*/bin/win-sudo/s:$PATH" >> ~/.bashrc
 source ~/.profile
 source ~/.bashrc
