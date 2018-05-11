@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-shopt -s globstar extglob histappend
 function doInstall {
 	if ! [ -L ~/bin/win-sudo ] && ! [ -d ~/bin/win-sudo ]; then
 		mkdir ~/bin/win-sudo
