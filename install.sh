@@ -21,3 +21,4 @@ function doFail {
 	exit 1
 }
 doInstall || doFail
+echo "enjoy :)"
