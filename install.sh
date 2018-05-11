@@ -18,6 +18,6 @@ function doFail {
 doInstall || doFail
 extra_directories=(/*/Users/*/bin/win-sudo/s)
 extra_path=$(printf "%s:" "${extra_directories[@]}")
-eval "export PATH="${extra_path}${PATH}" >> ~/.bashrc"
+export PATH="${extra_path}${PATH}" >> ~/.bashrc
 source ~/.bashrc
 echo $PATH
