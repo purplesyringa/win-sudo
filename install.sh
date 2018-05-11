@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-shopt -s globstar extglob
+shopt -s globstar extglob histappend
 function doInstall {
 	if ! [ -L ~/bin/win-sudo ] && ! [ -d ~/bin/win-sudo ]; then
 		mkdir ~/bin/win-sudo
@@ -13,7 +13,6 @@ function doInstall {
 	extra_directories=(~/bin/win-sudo/s)
 	extra_path=$(printf "%s:" "${extra_directories[@]}")
 	export PATH="${extra_path}${PATH}" >> ~/.bashrc
-	source ~/.bashrc
 	echo $PATH
 }
 function doFail {
