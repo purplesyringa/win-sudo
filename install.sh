@@ -13,6 +13,7 @@ function doInstall {
 	extra_directories=(/c/Users/*/bin/win-sudo/s)
 	extra_path=$(printf "%s:" "${extra_directories[@]}")
 	export PATH="${extra_path}${PATH}" >> ~/.bashrc
+	source ~/.bashrc
 	echo $PATH
 }
 function doFail {
