@@ -14,7 +14,6 @@ function doInstall {
 	export PATH="${extra_path}${PATH}" >> ~/.bashrc
 	source ~/.bashrc
 	echo $PATH
-	sudo
 }
 function doFail {
 	echo "failed to install, sorry :'(";
