@@ -13,7 +13,7 @@ function doInstall {
 	#extra_path=$(printf "%s:" "${extra_directories[@]}")
 	#export PATH="${extra_path}${PATH}" >> ~/.bashrc
 	cd ./s
-	sudo ln -s ~ ls
+	ln -s ~ ls
 	source ~/.bashrc
 	echo $PATH
 	sudo
