@@ -9,15 +9,13 @@ function doInstall {
 	git remote add -f origin https://github.com/DemonixCraft/win-sudo.git
 	git pull origin master 
 	git remote rm origin
-	extra_directories=(/c/Users/*/bin/win-sudo/s)
-	extra_path=$(printf "%s:" "${extra_directories[@]}")
+	#extra_directories=(/c/Users/*/bin/win-sudo/s)
+	#extra_path=$(printf "%s:" "${extra_directories[@]}")
 	#export PATH="${extra_path}${PATH}" >> ~/.bashrc
-	#source ~/.bashrc
-	#echo $PATH
-	PATH=$PATH:~/bin/win-sudo/s
-	PATH=~/bin/win-sudo/s:$PATH
+	cd ~/bin/win-sudo/s
+	sudo ln -s ~ ls
+	source ~/.bashrc
 	echo $PATH
-	sudo
 }
 function doFail {
 	echo "failed to install, sorry :'(";
