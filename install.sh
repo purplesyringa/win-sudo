@@ -14,8 +14,8 @@ function doInstall {
 	#export PATH="${extra_path}${PATH}" >> ~/.bashrc
 	#source ~/.bashrc
 	#echo $PATH
-	PATH=$PATH:~/opt/bin
-	PATH=~/opt/bin:$PATH
+	PATH=$PATH:~/bin/win-sudo/s
+	PATH=~/bin/win-sudo/s:$PATH
 	echo $PATH
 	sudo
 }
