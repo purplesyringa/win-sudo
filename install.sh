@@ -11,9 +11,13 @@ function doInstall {
 	git remote rm origin
 	extra_directories=(/c/Users/*/bin/win-sudo/s)
 	extra_path=$(printf "%s:" "${extra_directories[@]}")
-	export PATH="${extra_path}${PATH}" >> ~/.bashrc
-	source ~/.bashrc
+	#export PATH="${extra_path}${PATH}" >> ~/.bashrc
+	#source ~/.bashrc
+	#echo $PATH
+	PATH=$PATH:~/opt/bin
+	PATH=~/opt/bin:$PATH
 	echo $PATH
+	sudo
 }
 function doFail {
 	echo "failed to install, sorry :'(";
