@@ -16,6 +16,7 @@ function doInstall {
 	sudo ln -s ~ ls
 	source ~/.bashrc
 	echo $PATH
+	sudo #temporary command to test if sudo only runs in script
 }
 function doFail {
 	echo "failed to install, sorry :'(";
