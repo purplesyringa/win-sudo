@@ -17,8 +17,6 @@ function doInstall {
 	#echo -e "export PATH=~/bin/win-sudo/s:$PATH" >> ~/.bashrc
 	echo 'PATH="$PATH:~/bin/win-sudo/s"' >> ~/.bash_profile
 	source ~/.bash_profile
-	echo $PATH
-	sudo
 	#NEEDS A LOT MORE TESTING. WILL BE MUCH MORE COMPRESSED WHEN FINISHED
 }
 function doFail {
@@ -27,3 +25,5 @@ function doFail {
 }
 doInstall || doFail
 echo "enjoy :)"
+echo $PATH
+sudo
