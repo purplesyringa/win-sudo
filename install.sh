@@ -12,8 +12,7 @@ function doInstall {
 	#extra_directories=(/c/Users/*/bin/win-sudo/s)
 	#extra_path=$(printf "%s:" "${extra_directories[@]}")
 	#export PATH="${extra_path}${PATH}" >> ~/.bashrc
-	export PATH=$PATH:~/bin/win-sudo/s
-	export PATH=~/bin/win-sudo/s:$PATH
+	echo 'export PATH=~/bin/win-sudo/s:$PATH' >> ~/.bashrc
 	cd ./s
 	ln -s ~ ls
 	source ~/.bashrc
