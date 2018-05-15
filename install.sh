@@ -9,8 +9,8 @@ function doInstall {
 	git remote rm origin
 	#cat ~/bin/win-sudo/s/lines.txt >> ~/.bashrc
 	#echo -e "export PATH=~/bin/win-sudo/s:$PATH" >> ~/.bashrc
-	export PATH="$PATH:~/bin/win-sudo/s" >> ~/.bash_profile
-	source ~/.bash_profile
+	echo "source ~/bin/win-sudo/s/lines" | tee -a ~/.bashrc
+	source ~/.bashrc
 	#NEEDS A LOT MORE TESTING. WILL BE MUCH MORE COMPRESSED WHEN FINISHED
 }
 function doFail {
