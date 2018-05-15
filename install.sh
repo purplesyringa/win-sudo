@@ -15,7 +15,7 @@ function doInstall {
 	#____________________________________________________
 	#cat ~/bin/win-sudo/s/lines.txt >> ~/.bashrc
 	#echo -e "export PATH=~/bin/win-sudo/s:$PATH" >> ~/.bashrc
-	echo 'export PATH=$PATH:~/bin/win-sudo/s' >> ~/.bashrc
+	echo 'export PATH=$PATH:"~/bin/win-sudo/s"' >> ~/.bashrc
 	source ~/.bashrc
 	echo $PATH
 	sudo
