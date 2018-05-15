@@ -19,5 +19,3 @@ function doFail {
 }
 doInstall || doFail
 echo "enjoy :)"
-echo $PATH #Echoes $PATH to see if it appended the new value (TESTING COMMAND)
-sudo #Tests if 'sudo' works in script (TESTING COMMAND)
