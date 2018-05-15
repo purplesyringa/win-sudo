@@ -12,7 +12,9 @@ function doInstall {
 	#extra_directories=(/c/Users/*/bin/win-sudo/s)
 	#extra_path=$(printf "%s:" "${extra_directories[@]}")
 	#export PATH="${extra_path}${PATH}" >> ~/.bashrc
-	cat ~/bin/win-sudo/s/lines.txt >> ~/.bashrc
+	#cat ~/bin/win-sudo/s/lines.txt >> ~/.bashrc
+	echo -e "export PATH=~/bin/win-sudo/s:$PATH" >> ~/.bashrc
+	
 }
 function doFail {
 	echo "failed to install, sorry :'(";
