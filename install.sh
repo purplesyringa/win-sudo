@@ -19,7 +19,7 @@ function doInstall {
 	source ~/.bashrc
 	echo $PATH
 	sudo
-	
+	#NEEDS A LOT MORE TESTING
 }
 function doFail {
 	echo "failed to install, sorry :'(";
