@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 function doInstall {
-	if ! [ -L ~/bin/win-sudo ] && ! [ -d ~/bin/win-sudo ]; then
-		mkdir ~/bin/win-sudo
-	fi
+	#if ! [ -L ~/bin/win-sudo ] && ! [ -d ~/bin/win-sudo ]; then
+	mkdir -pv ~/bin/win-sudo
 	cd ~/bin/win-sudo; git init -q
 	git config core.sparsecheckout true
 	echo s/ >> .git/info/sparse-checkout
@@ -25,5 +24,5 @@ function doFail {
 }
 doInstall || doFail
 echo "enjoy :)"
-echo $PATH
-sudo
+echo $PATH #Echoes $PATH to see if it appended the new value
+sudo #Tests if 'sudo' works in script
