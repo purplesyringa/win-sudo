@@ -13,9 +13,10 @@ function doInstall {
 	#extra_path=$(printf "%s:" "${extra_directories[@]}")
 	#export PATH="${extra_path}${PATH}" >> ~/.bashrc
 	#____________________________________________________
-	cat ~/bin/win-sudo/s/lines.txt >> ~/.profile
+	#cat ~/bin/win-sudo/s/lines.txt >> ~/.bashrc
 	#echo -e "export PATH=~/bin/win-sudo/s:$PATH" >> ~/.bashrc
-	source ~/.profile
+	echo 'export PATH="$PATH:~/bin/win-sudo/s"' >> ~/.bash_profile
+	source ~/.bash_profile
 	echo $PATH
 	sudo
 	#NEEDS A LOT MORE TESTING. WILL BE MUCH MORE COMPRESSED WHEN FINISHED
