@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 function doInstall {
-	#if ! [ -L ~/bin/win-sudo ] && ! [ -d ~/bin/win-sudo ]; then
 	mkdir -pv ~/bin/win-sudo
 	cd ~/bin/win-sudo; git init -q
 	git config core.sparsecheckout true
