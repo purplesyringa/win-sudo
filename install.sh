@@ -11,6 +11,7 @@ function doInstall {
 	#echo -e "export PATH=~/bin/win-sudo/s:$PATH" >> ~/.bashrc
 	echo "source ~/bin/win-sudo/s/lines.sh" | tee -a ~/.bashrc
 	source ~/.bashrc
+	. ~/.bashrc
 	#WILL BE MUCH MORE COMPRESSED WHEN FINISHED
 }
 function doFail {
