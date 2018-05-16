@@ -9,7 +9,6 @@ function doInstall {
 	git remote rm origin #Temp Command : Removes Origin so it will not mess up next install
 	echo "source ~/bin/win-sudo/s/lines.sh" | tee -a ~/.bashrc #Tells ~/.bashrc to use the code from lines.sh upon startup
 	. ~/.bashrc
-	exec bash #Reloads current shell
 	#WILL BE MUCH MORE COMPRESSED WHEN FINISHED
 	#Warning : This will not work if '.bash_profile' in in your $HOME directory, as it will not source ~/bashrc upon startup
 }
@@ -19,3 +18,4 @@ function doFail {
 }
 doInstall || doFail
 echo "enjoy :)"
+exec bash #Reloads current shell
