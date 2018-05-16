@@ -18,4 +18,4 @@ function doFail {
 }
 doInstall || doFail
 echo "enjoy :)"
-exec bash #Reloads current shell
+exec bash #Refreshes current shell
