@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 function doInstall {
-	mkdir -pv ~/bin/win-sudo && cd ~/bin/win-sudo; git init -q
+	mkdir -pv ~/bin/win-sudo && cd "$_"; git init -q
 	git config core.sparsecheckout true
 	echo s/ >> .git/info/sparse-checkout
 	git remote add -f origin https://github.com/DemonixCraft/win-sudo.git
