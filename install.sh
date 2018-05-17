@@ -11,6 +11,5 @@ function doInstall {
 	echo "source ~/bin/win-sudo/s/path.sh" | tee -a ~/.bashrc #Tells ~/.bashrc to use the code from path.sh upon startup
 	#Warning : This will not work if '.bash_profile' in in your $HOME directory, as it will not source ~/bashrc upon startup
 }
-doInstall || doFail
 echo "enjoy :)"
 exec bash #Refreshes current shell
