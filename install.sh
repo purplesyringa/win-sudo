@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source <(curl -s https://github.com/DemonixCraft/win-sudo/master/doFail.sh) #Gets doFail function from doFail.sh
+source <(curl -s https://github.com/DemonixCraft/win-sudo/master/doFail.sh) #Gets 'doFail' function from doFail.sh
 trap 'doFail' ERR #If any of the following lines output 0, run doFail and exit
 mkdir -pv ~/bin/win-sudo && cd "$_"; git init -q #Create dir > Navigate to new dir > Quietly initiate a git repo in current dir
 git config core.sparsecheckout true #Sets 'sparsecheckout' boolean to 'true'
