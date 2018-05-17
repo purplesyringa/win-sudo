@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+function doFail {
+	echo "failed to install, sorry :'(";
+}
+trap 'doFail' ERR
 function doInstall {
 	mkdir -pv ~/bin/win-sudo && cd "$_"; git init -q
 	git config core.sparsecheckout true
@@ -8,10 +12,6 @@ function doInstall {
 	git remote rm origin #Temp Command : Removes Origin so it will not mess up next install
 	echo "source ~/bin/win-sudo/s/path.sh" | tee -a ~/.bashrc #Tells ~/.bashrc to use the code from path.sh upon startup
 	#Warning : This will not work if '.bash_profile' in in your $HOME directory, as it will not source ~/bashrc upon startup
-}
-function doFail {
-	echo "failed to install, sorry :'(";
-	exit 1
 }
 doInstall || doFail
 echo "enjoy :)"
