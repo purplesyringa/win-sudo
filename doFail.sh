@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 function doFail {
-  echo "Failed to install, sorry :'("
+  echo "COMMAND EXECUTION FAILED...EXITING SCRIPT"
 }
