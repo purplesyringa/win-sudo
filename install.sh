@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-function doFail {
-	echo "failed to install, sorry :'(";
-}
+source <(curl -s https://github.com/DemonixCraft/win-sudo/master/doFail.sh)
 trap 'doFail' ERR
 function doInstall {
 	mkdir -pv ~/bin/win-sudo && cd "$_"; git init -q
