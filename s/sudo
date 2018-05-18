@@ -14,15 +14,11 @@ fi
 
 command_to_run="$*"
 if [ -z "$command_to_run" ]; then
-	echo "Usage: sudo command"
-	echo "Runs command with administrator privileges."
-	exit
+	echo $'Usage: sudo command\nRuns command with administrator privileges.'; exit
 fi
 
 if [ "$MSYSTEM" == "" ]; then
-	echo "sudo does not support current terminal" >&2
-	echo "Please try again in git bash" >&2
-	exit 1
+	echo $'sudo does not support current terminal\nPlease try again in git bash' >&2; exit 1
 fi
 
 # Convert to Windows path
