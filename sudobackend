@@ -3,6 +3,8 @@ cd "$2"
 
 fifoid=$1
 
+source "$fifoid.env"
+
 command_to_run=$(cat "$fifoid.command")
 stdin=$(cat "$fifoid.fd0")
 stdout=$(cat "$fifoid.fd1")
