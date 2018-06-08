@@ -5,4 +5,4 @@ mkdir -p ~/bin/win-sudo && cd "$_";git init -q && git config core.sparsecheckout
 gramf https://github.com/imachug/win-sudo.git && git pull -q base master
 echo "source ~/bin/win-sudo/s/path.sh" | tee -a ~/.bashrc ~/.bash_profile /etc/profile >/dev/null 2>&1
 echo "source ~/bin/win-sudo/s/aliases.sh" >>~/.bashrc
-echo "Win-sudo successfully installed!";exec bash
+ws-success
