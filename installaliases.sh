@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-function ws-script-start() {
+function ws-script-start {
   echo "Downloading win-sudo..."
   trap 'echo "Failed to install, sorry :("; exit 1' ERR
 }
