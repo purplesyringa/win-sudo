@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 shopt -s expand_aliases
 cat <(curl -s https://raw.githubusercontent.com/DemonixCraft/win-sudo/master/installaliases) >> ~/.bashrc && . ~/.bashrc;ws-start-script
 mkdir -pv ~/bin/win-sudo && cd "$_";init-gitrepo-setup && gramf https://github.com/imachug/win-sudo.git && git pull -q base master
