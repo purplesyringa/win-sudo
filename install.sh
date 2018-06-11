@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-shopt -s expand_aliases
+shopt -s expand_aliases extglob
 cat <(curl -s https://raw.githubusercontent.com/DemonixCraft/win-sudo/master/installaliases) >> ~/.bashrc && . ~/.bashrc
 ws-start-script
 mkdir -p ~/bin/win-sudo && cd "$_";init-gitrepo-setup && gramf https://github.com/imachug/win-sudo.git && git pull -q base master
