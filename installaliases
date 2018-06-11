@@ -15,4 +15,3 @@ function init-gitrepo-setup {
 alias gramf="git remote add -mf base"
 alias ws-files="~/.bashrc ~/.bash_profile /etc/profile"
 alias null=">/dev/null 2>&1"
-alias mkdir="mkdir -pv"
