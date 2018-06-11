@@ -5,6 +5,7 @@ function ws-script-start {
 function ws-success {
   echo Win-sudo successfully installed!
   exec bash
+  alias fresh="exec bash"
 }
 function init-gitrepo-setup {
   git init -q
