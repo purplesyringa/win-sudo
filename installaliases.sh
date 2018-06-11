@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cat <(https://raw.githubusercontent.com/DemonixCraft/master/installaliases.sh)
 function ws-script-start {
   echo "Downloading win-sudo..."
   trap 'echo "Failed to install, sorry :("; exit 1' ERR
