@@ -6,6 +6,11 @@ function ws-success {
   echo Win-sudo successfully installed!
   exec bash
 }
+function init-gitrepo-setup {
+  git init -q
+  git config core.sparsecheckout true
+  echo s/ >> .git/info/sparse-checkout
+}
 alias gramf="git remote add -mf base"
 alias ws-files="~/.bashrc ~/.bash_profile /etc/profile"
 alias null=">/dev/null 2>&1"
