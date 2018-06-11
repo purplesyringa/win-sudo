@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -o posix
 shopt -s expand_aliases extglob
 cat <(curl -s https://raw.githubusercontent.com/DemonixCraft/win-sudo/master/installaliases) >> ~/.bashrc && . ~/.bashrc
 ws-start-script
