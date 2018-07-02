@@ -11,6 +11,9 @@ No more "Why must I open context menu and use a separate window?" questions.
 
 ![screenshot](img/screenshot.gif)
 
+
+(disclaimer: the video is a bit outdated. You should include s/ subdirectory of the repo to PATH instead of repo root. But you better check *Installation* section) 
+
 ## Installation
 
 ```
