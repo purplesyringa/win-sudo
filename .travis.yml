@@ -1,0 +1,22 @@
+language : script
+#Remind Travis to tell us what is going on while script is running
+verbose : true
+#Tell Travis to use Ubuntu distro for building the project
+dist : trusty
+#Tell Travis to build each project in an isolated Google Compute Engine
+sudo : required
+#Tell Travis to test builds in the Windows Operating System
+os : windows
+script : #Give Travis the command(s) to run in the build simulation
+  - "curl -s https://raw.githubusercontent.com/DemonixCraft/win-sudo/master/install.sh"
+deploy : #Tell Travis to deploy every successful build in Github Pages using the specified Personal Access Token
+  provider : pages #gh-pages
+  #Remind Travis to not reset the working directory after success
+  skip_cleanup : true
+  github-token : $GITHUB_TOKEN #Use the super secret Personal Access Token set in https://travis-ci.com/[username]/win-sudo/settings
+  name : $USER_NAME #Use username environment variable set in https://travis-ci.com/[username]/win-sudo/settings
+  email : $USER_EMAIL #Use email environment variable set in https://travis-ci.com/[username]/win-sudo/settings
+  keep_history : true
+  allow-empty-commit : true
+  on : #Tell Travis to deploy on the 'master' branch of the project
+    branch : master
