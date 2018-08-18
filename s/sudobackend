@@ -3,17 +3,19 @@ cd "$2"
 
 fifoid=$1
 
-command_to_run=$(/bin/cat "$fifoid.command")
-stdin=$(/bin/cat "$fifoid.fd0")
-stdout=$(/bin/cat "$fifoid.fd1")
-stderr=$(/bin/cat "$fifoid.fd2")
+source "$fifoid.env"
+
+command_to_run=$(< "$fifoid.command")
+stdin=$(< "$fifoid.fd0")
+stdout=$(< "$fifoid.fd1")
+stderr=$(< "$fifoid.fd2")
 
 $SHELL -c "$command_to_run" >"$stdout" 2>"$stderr" <"$stdin" &
 pid=$!
 echo $pid >"$fifoid.pidf"
 
 while true; do
-	sigint=$(/bin/cat "$fifoid.sigint")
+	sigint=$(< "$fifoid.sigint")
 	if [ ! -z "$sigint" ]; then
 		if [ "$sigint" -eq 2 ]; then
 			break
