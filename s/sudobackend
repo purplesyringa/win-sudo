@@ -5,17 +5,17 @@ fifoid=$1
 
 source "$fifoid.env"
 
-command_to_run=$(cat "$fifoid.command")
-stdin=$(cat "$fifoid.fd0")
-stdout=$(cat "$fifoid.fd1")
-stderr=$(cat "$fifoid.fd2")
+command_to_run=$(< "$fifoid.command")
+stdin=$(< "$fifoid.fd0")
+stdout=$(< "$fifoid.fd1")
+stderr=$(< "$fifoid.fd2")
 
 $SHELL -c "$command_to_run" >"$stdout" 2>"$stderr" <"$stdin" &
 pid=$!
 echo $pid >"$fifoid.pidf"
 
 while true; do
-	sigint=$(cat "$fifoid.sigint")
+	sigint=$(< "$fifoid.sigint")
 	if [ ! -z "$sigint" ]; then
 		if [ "$sigint" -eq 2 ]; then
 			break

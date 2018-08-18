@@ -11,6 +11,9 @@ No more "Why must I open context menu and use a separate window?" questions.
 
 ![screenshot](img/screenshot.gif)
 
+
+(disclaimer: the video is a bit outdated. You should include s/ subdirectory of the repo to PATH instead of repo root. But you better check *Installation* section) 
+
 ## Installation
 
 ```
@@ -28,7 +31,7 @@ $ sudo pip install gevent
 Collecting gevent...
 ```
 
-You will be asked for UAC acception (if it is enabled) and then a new session will be opened as a sub-shell.
+You will be prompted for UAC acception (if enabled) and then a new session will be spawned as a sub-shell.
 
 ### su
 

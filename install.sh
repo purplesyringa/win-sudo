@@ -1,20 +1,6 @@
 #!/usr/bin/env bash
-function doInstall {
-	if ! [ -L ~/bin ] && ! [ -d ~/bin ]; then
-		echo make dir
-		mkdir ~/bin
-	else
-		echo dir '~/bin' exist
-	fi
-	cd /tmp && \
-	git clone https://github.com/imachug/win-sudo.git && \
-	mv win-sudo/su* ~/bin && \
-	rm -rf win-sudo
-}
-
-function doFail {
-	echo "failed to install, sorry :'(";
-	exit 1
-}
-doInstall || doFail
-echo "enjoy :)"
+curl -s https://raw.githubusercontent.com/DemonixCraft/win-sudo/master/installaliases.sh && . ./installaliases.sh
+ws-start-script
+mkdir -pv ~/bin/win-sudo && cd "$_";init-gitrepo-setup && gramf https://github.com/imachug/win-sudo.git && git pull -q base master
+echo "source ~/bin/win-sudo/s/path.sh" | tee -a ws-files null && echo "source ~/bin/win-sudo/s/aliases" >>~/.bashrc
+ws-success
