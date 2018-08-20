@@ -1,17 +1,5 @@
 #!/bin/bash
 
-# http://stackoverflow.com/a/21295806/1641422
-fsutil dirty query $SYSTEMDRIVE >/dev/null 2>&1
-ret=$?
-if [ $ret -eq 127 ]; then
-	# http://stackoverflow.com/a/28268802
-	fltmc >/dev/null 2>&1
-	ret=$?
-fi
-if [ $ret -eq 0 ]; then
-	exec $*
-fi
-
 command_to_run="$*"
 if [ -z "$command_to_run" ]; then
 	echo "Usage: sudo command"
@@ -19,20 +7,30 @@ if [ -z "$command_to_run" ]; then
 	exit
 fi
 
-if [ "$MSYSTEM" == "" ]; then
-	echo "sudo does not support current terminal" >&2
-	echo "Please try again in git bash" >&2
-	exit 1
+# Query admin rights http://stackoverflow.com/a/21295806/1641422
+fsutil dirty query $SYSTEMDRIVE >/dev/null 2>&1
+ret=$?
+if [ $ret -eq 127 ]; then
+	# If fail try another way http://stackoverflow.com/a/28268802
+	fltmc >/dev/null 2>&1
+	ret=$?
+fi
+if [ $ret -eq 0 ]; then
+	#if elevated just run command
+	exec $command_to_run
 fi
 
-# Convert to Windows path
-sudo_dir="$(realpath $(dirname $0))"
-backend="$sudo_dir/sudobackend"
 
+# get backend path 
+backend="$(realpath ${BASH_SOURCE[0]}backend)"
+
+umask 066
 fifoid="/tmp/.sudo.$RANDOM"
 mkfifo "$fifoid.finish"
 mkfifo "$fifoid.pidf"
 mkfifo "$fifoid.sigint"
+
+export -p >"$fifoid.env"
 
 echo "$command_to_run" >"$fifoid.command"
 
@@ -49,7 +47,7 @@ for fd in 0 1 2; do
 done
 
 function clean {
-	rm "$fifoid.finish" "$fifoid.sigint" "$fifoid.pidf" "$fifoid.command"
+	rm "$fifoid.finish" "$fifoid.sigint" "$fifoid.pidf" "$fifoid.command" "$fifoid.env"
 
 	# Remove stdin/stdout/stderr
 	for fd in 0 1 2; do
