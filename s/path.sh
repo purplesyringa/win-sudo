@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-bash aliases
+. ~/bin/win-sudo/s/aliases
 export PATH=$PATH:~/bin/win-sudo/s
