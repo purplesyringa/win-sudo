@@ -25,12 +25,12 @@ for f in ~/.bashrc ~/.bash_profile
 do
 	echo "Processing $f"
 	if test -f $f ; then
-		if grep -q "source ~/bin/win-sudo/s/path.sh" $f; then
+		if grep -q "source ~/bin/win-sudo/s/path.sh" $f ; then
 			echo "Sudo initialization already in file " $f
 			break
 		else
 			echo "Appending sudo initialization to " $f
-			echo "source ~/bin/win-sudo/s/path.sh" | tee -a $f 
+			echo "source ~/bin/win-sudo/s/path.sh" >>$f
 			break
 		fi
 	fi
