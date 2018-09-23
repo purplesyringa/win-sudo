@@ -36,5 +36,5 @@ do
 	fi
 done
 
-source ~/bin/win-sudo/s/path.sh
 echo "Win-sudo successfully installed!"
+exec bash
