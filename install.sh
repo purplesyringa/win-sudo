@@ -31,7 +31,7 @@ do
 			break
 		else
 			echo "Appending sudo initialization to " $f
-			echo "source ~/bin/win-sudo/s/path.sh" >>$f
+			echo "[ -f ~/bin/win-sudo/s/path.sh ] && source ~/bin/win-sudo/s/path.sh" >>$f
 			break
 		fi
 	fi
