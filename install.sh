@@ -5,7 +5,8 @@ echo "Downloading win-sudo..."
 trap "echo Failed to install, sorry :(; exit 1" ERR
 
 # Clean default install dir
-if test -d ~/bin/win-sudo ; then
+if [ -d ~/bin/win-sudo ] ; then
+	echo "Cleaning ~/bin/win-sudo..."
 	rm -rfv ~/bin/win-sudo
 fi
 
@@ -24,7 +25,7 @@ touch ~/.bashrc
 for f in ~/.bashrc ~/.bash_profile
 do
 	echo "Processing $f"
-	if test -f $f ; then
+	if [ -f $f ] ; then
 		if grep -q "source ~/bin/win-sudo/s/path.sh" $f ; then
 			echo "Sudo initialization already in file " $f
 			break
