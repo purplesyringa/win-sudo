@@ -38,7 +38,7 @@ echo "$command_to_run" >"$fifoid.command"
 for fd in 0 1 2; do
 	if [ -t $fd ]; then
 		# Terminal
-		echo "/proc/$$/fd/$fd" >"$fifoid.fd$fd"
+		readlink "/proc/$$/fd/$fd" >"$fifoid.fd$fd"
 	else
 		# Not terminal
 		mkfifo "$fifoid.pipe$fd"
