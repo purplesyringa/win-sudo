@@ -1,11 +1,14 @@
 #!/bin/bash
-cd "$2"
 
-fifoid=$1
+set -x
+
+fifoid="$1"
+
+cd "$2" || exit 1
 
 source "$fifoid.env"
 
-command_to_run=$(< "$fifoid.command")
+command_to_run="$(< "$fifoid.command")"
 stdin=$(< "$fifoid.fd0")
 stdout=$(< "$fifoid.fd1")
 stderr=$(< "$fifoid.fd2")
@@ -16,7 +19,7 @@ echo $pid >"$fifoid.pidf"
 
 while true; do
 	sigint=$(< "$fifoid.sigint")
-	if [ ! -z "$sigint" ]; then
+	if [ -n "$sigint" ]; then
 		if [ "$sigint" -eq 2 ]; then
 			break
 		fi
