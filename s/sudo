@@ -1,6 +1,17 @@
 #!/bin/bash
 
-command_to_run="$*"
+command_to_run=''
+for arg in "$@"; do
+    case "$arg" in
+        *\'*)
+            arg="$(printf "%s" "$arg" | sed "s/'/'\"'\"'/g")"
+            ;;
+        *) : ;;
+    esac
+    [[ -n "$command_to_run" ]] && command_to_run="$command_to_run "
+    command_to_run="$command_to_run'$arg'"
+done
+
 if [ -z "$command_to_run" ]; then
 	echo "Usage: sudo command"
 	echo "Runs command with administrator privileges."
@@ -17,7 +28,7 @@ if [ $ret -eq 127 ]; then
 fi
 if [ $ret -eq 0 ]; then
 	#if elevated just run command
-	exec $command_to_run
+	exec "$command_to_run"
 fi
 
 
@@ -60,14 +71,14 @@ function clean {
 trap clean EXIT
 
 # Run command
-powershell.exe Start-Process \"$(cygpath -w /bin/)bash\" \"$backend\", \"$fifoid\", \"$(pwd)\" -Verb RunAs -WindowStyle Hidden 2>/dev/null
+powershell.exe Start-Process \""$(cygpath -w /bin/)"bash\" \"$backend\", \"$fifoid\", \""$PWD"\" -Verb RunAs -WindowStyle Hidden 2>/dev/null
 if [ $? -ne 0 ]; then
 	echo "UAC elevation was canceled" >&2
 	exit 1
 fi
 
 # Get pid
-pid=$(cat "$fifoid.pidf")
+pid="$(cat "$fifoid.pidf")"
 
 # Wait
 trap "echo 1 >\"$fifoid.sigint\" && sleep 0.1" SIGINT
