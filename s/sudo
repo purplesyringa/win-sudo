@@ -71,8 +71,8 @@ function clean {
 trap clean EXIT
 
 # Run command
-powershell.exe Start-Process \""$(cygpath -w /bin/)"bash\" \"$backend\", \"$fifoid\", \""$PWD"\" -Verb RunAs -WindowStyle Hidden 2>/dev/null
-if [ $? -ne 0 ]; then
+
+if ! powershell.exe Start-Process \""$(cygpath -w /bin/)"bash\" \""$backend"\", \"$fifoid\" -Verb RunAs -WorkingDirectory "$PWD" -WindowStyle Hidden 2>/dev/null; then
 	echo "UAC elevation was canceled" >&2
 	exit 1
 fi
@@ -96,8 +96,8 @@ for fd in 1 2; do
 done
 
 while true; do
-	res=$(cat "$fifoid.finish")
-	if [ ! -z "$res" ]; then
+	res="$(cat "$fifoid.finish")"
+	if [ -n "$res" ]; then
 		break
 	fi
 done
