@@ -2,29 +2,27 @@
 
 fifoid="$1"
 
-cd "$2" || exit 1
-
 source "$fifoid.env"
 
 command_to_run="$(< "$fifoid.command")"
-stdin=$(< "$fifoid.fd0")
-stdout=$(< "$fifoid.fd1")
-stderr=$(< "$fifoid.fd2")
+stdin="$(< "$fifoid.fd0")"
+stdout="$(< "$fifoid.fd1")"
+stderr="$(< "$fifoid.fd2")"
 
 $SHELL -c "$command_to_run" >"$stdout" 2>"$stderr" <"$stdin" &
-pid=$!
-echo $pid >"$fifoid.pidf"
+pid="$!"
+echo "$pid" >"$fifoid.pidf"
 
 while true; do
-	sigint=$(< "$fifoid.sigint")
+	sigint="$(< "$fifoid.sigint")"
 	if [ -n "$sigint" ]; then
 		if [ "$sigint" -eq 2 ]; then
 			break
 		fi
-		kill -s SIGINT $pid
+		kill -s SIGINT "$pid"
 	fi
 done &
 
-wait $pid
+wait "$pid"
 echo 2 >"$fifoid.sigint"
 echo 1 >"$fifoid.finish"
