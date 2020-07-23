@@ -33,7 +33,7 @@ fi
 
 
 # get backend path 
-backend="$(realpath ${BASH_SOURCE[0]}backend)"
+backend="$(realpath "${BASH_SOURCE[0]}backend")"
 
 umask 066
 fifoid="/tmp/.sudo.$RANDOM"
@@ -71,8 +71,7 @@ function clean {
 trap clean EXIT
 
 # Run command
-
-if ! powershell.exe Start-Process \""$(cygpath -w /bin/)"bash\" \""$backend"\", \"$fifoid\" -Verb RunAs -WorkingDirectory "$PWD" -WindowStyle Hidden 2>/dev/null; then
+if ! powershell.exe Start-Process \""$(cygpath -w /bin/)"bash\" \""$backend"\", \"$fifoid\" -Verb RunAs -WorkingDirectory \""$PWD"\" -WindowStyle Hidden\; \(\$Error[0]\).InvocationInfo.Line; then
 	echo "UAC elevation was canceled" >&2
 	exit 1
 fi
