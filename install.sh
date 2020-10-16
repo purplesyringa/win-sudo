@@ -2,7 +2,7 @@
 echo "Downloading win-sudo..."
 
 # Set error handler
-trap "echo Failed to install, sorry :(; exit 1" ERR
+trap "echo 'Failed to install, sorry :('; exit 1" ERR
 
 # Clean default install dir
 if [ -d "$HOME/bin/win-sudo" ] ; then
