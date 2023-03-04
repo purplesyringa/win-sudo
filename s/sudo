@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Query admin rights http://stackoverflow.com/a/21295806/1641422
+fsutil dirty query $SYSTEMDRIVE >/dev/null 2>&1
+ret=$?
+if [ $ret -eq 127 ]; then
+	# If fail try another way http://stackoverflow.com/a/28268802
+	fltmc >/dev/null 2>&1
+	ret=$?
+fi
+if [ $ret -eq 0 ]; then
+	#if elevated just run command
+	exec "$@"
+fi
+
 command_to_run=''
 for arg in "$@"; do
     case "$arg" in
@@ -17,20 +30,6 @@ if [ -z "$command_to_run" ]; then
 	echo "Runs command with administrator privileges."
 	exit
 fi
-
-# Query admin rights http://stackoverflow.com/a/21295806/1641422
-fsutil dirty query $SYSTEMDRIVE >/dev/null 2>&1
-ret=$?
-if [ $ret -eq 127 ]; then
-	# If fail try another way http://stackoverflow.com/a/28268802
-	fltmc >/dev/null 2>&1
-	ret=$?
-fi
-if [ $ret -eq 0 ]; then
-	#if elevated just run command
-	exec "$command_to_run"
-fi
-
 
 # get backend path 
 backend="$(realpath "${BASH_SOURCE[0]}backend")"
