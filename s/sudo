@@ -45,9 +45,19 @@ export -p >"$fifoid.env"
 
 echo "$command_to_run" >"$fifoid.command"
 
+if [ -t 0 ]; then
+	if readlink "/proc/$$/fd/0"|grep -q cons; then
+		pty=0
+	else
+		pty=1
+	fi
+else
+	pty=0
+fi
+
 # Create fifos
 for fd in 0 1 2; do
-	if [ -t $fd ]; then
+	if [ $pty -eq 1 ]; then
 		# Terminal
 		readlink "/proc/$$/fd/$fd" >"$fifoid.fd$fd"
 	else
@@ -62,7 +72,7 @@ function clean {
 
 	# Remove stdin/stdout/stderr
 	for fd in 0 1 2; do
-		if [ ! -t $fd ]; then
+		if [ $pty -eq 0 ]; then
 			rm "$fifoid.pipe$fd"
 		fi
 		rm "$fifoid.fd$fd"
@@ -83,14 +93,14 @@ pid="$(cat "$fifoid.pidf")"
 trap "echo 1 >\"$fifoid.sigint\" && sleep 0.1" SIGINT
 
 # Pass stdin fifo
-if [ ! -t 0 ]; then
+if [ $pty -eq 0 ]; then
 	( cat <&3 >"$fifoid.pipe0" & ) 3<&0
 fi
 
 # Cat stdout and stderr
 for fd in 1 2; do
-	if [ ! -t $fd ]; then
-		cat "$fifoid.pipe1" &
+	if [ $pty -eq 0 ]; then
+		cat "$fifoid.pipe$fd" &
 	fi
 done
 
