@@ -3,7 +3,7 @@
 > If we open msysgit as administrator, we can use it as if we were root.
 > However, it is often easier to open without administrator privileges.
 
-> Well, Git comes with Bash emulator and you can use *nix commands. "sudo" and "apt-get" are not such - there are tools, programs if you like which obviously you don't have.
+> Well, Git comes with Bash emulator and you can use \*nix commands. "sudo" and "apt-get" are not such - there are tools, programs if you like which obviously you don't have.
 
 Say no to these problems! Install `win-sudo` and use `sudo` and `su` as on Linux.
 
@@ -11,13 +11,13 @@ No more "Why must I open context menu and use a separate window?" questions.
 
 ![screenshot](img/screenshot.gif)
 
-
-(disclaimer: the video is a bit outdated. You should include s/ subdirectory of the repo to PATH instead of repo root. But you better check *Installation* section) 
+(disclaimer: the video is a bit outdated. You should include s/ subdirectory of the repo to PATH instead of repo root. But you better check _Installation_ section)
 
 ## Installation
 
 ```
-curl -s https://raw.githubusercontent.com/imachug/win-sudo/master/install.sh | sh
+ curl -s https://raw.githubusercontent.com/purplesyringa/win-sudo/master/install.sh | sh
+
 ```
 
 ## Usage
