@@ -17,7 +17,6 @@ No more "Why must I open context menu and use a separate window?" questions.
 
 ```
 curl -s https://raw.githubusercontent.com/purplesyringa/win-sudo/master/install.sh | sh
-
 ```
 
 ## Usage
