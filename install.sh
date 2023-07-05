@@ -17,7 +17,7 @@ git init -q
 git config core.sparsecheckout true
 mkdir -p .git/info
 echo s/ >>.git/info/sparse-checkout
-git remote add -mf base https://github.com/imachug/win-sudo.git
+git remote add -mf base https://github.com/purplesyringa/win-sudo.git
 git pull -q base master
 
 # Start processing bash initialization files
